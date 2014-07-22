@@ -117,16 +117,19 @@ Now you can do:
 
 =head1 DESCRIPTION
 
-This module provides a quick and easy way
+This module provides a quick and easy way to add tab completion feature to your
+scripts, including scripts already written using the venerable L<Getopt::Long>
+module.
 
-L<Getopt::Long::Complete> is basically just L<Getopt::Long>. Its C<GetOptions>
+This module is basically just a thin wrapper for Getopt::Long. Its C<GetOptions>
 function just checks for COMP_LINE/COMP_POINT environment variable before
 passing its arguments to Getopt::Long's GetOptions. If COMP_LINE is defined,
 completion reply will be printed to STDOUT and then the program will exit.
 Otherwise, Getopt::Long's GetOptions is called.
 
-To keep completion quick, you should do GetOptions as early as possible in your
-script. Preferably before loading lots of other Perl modules.
+To keep completion quick, you should do C<GetOptions()> or
+C<GetOptionsWithCompletion()> as early as possible in your script. Preferably
+before loading lots of other Perl modules.
 
 
 =head1 FUNCTIONS
