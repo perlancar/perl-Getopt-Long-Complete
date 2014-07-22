@@ -64,9 +64,11 @@ example, below is source code for C<delete-user>.
  use Getopt::Long::Complete;
  my %opts;
  GetOptions(
-     'help|h' => sub { ... },
-     'user=s' => \$opts{name},
-     'force'  => \$opts{force},
+     'help|h'     => sub { ... },
+     'on-fail=s'  => \$opts{on_fail},
+     'user=s'     => \$opts{name},
+     'force'      => \$opts{force},
+     'verbose!'   => \$opts{verbose},
  );
 
 To activate completion, put your script somewhere in C<PATH> and execute this in
@@ -78,22 +80,72 @@ C<~/.bashrc>):
 Now, tab completion works:
 
  % delete-user <tab>
- --force --help --user -h
+ --force --help --noverbose --no-verbose --on-fail --user --verbose -h
  % delete-user --h<tab>
 
 =head2 Second example (added completion)
 
-The previous example only provides completion
+The previous example only provides completion for option names. To provide
+completion for option values as well as arguments, you need to provide need more
+hints. Instead of C<GetOptions>, use C<GetOptionsWithCompletion>. It's basically
+the same as C<GetOptions> but accept an extra hash first argument. The hash
+contains option spec as its keys, or an empty string (to provide hints for
+arguments), and arrays or coderefs as its values. Example:
+
+ use Getopt::Long::Complete qw(GetOptionsWithCompletion);
+ use Complete::Unix;
+ my %opts;
+ GetOptionsWithCompletion(
+     {
+         'on-fail=s' => [qw/die warn ignore/],
+         'user=s'    => \&Complete::Unix::complete_user,
+     },
+     'help|h'     => sub { ... },
+     'on-fail=s'  => \$opts{on_fail},
+     'user=s'     => \$opts{name},
+     'force'      => \$opts{force},
+     'verbose!'   => \$opts{verbose},
+ );
+
+Now you can do:
+
+ % delete-user --on-fail <tab>
+ die ignore warn
+ % delete-user --on-fail die --user a<tab>
+ alice autrijus
 
 
 =head1 DESCRIPTION
 
-L<Getopt::Long::Complete> is basically just L<Getopt::Long>.
+This module provides a quick and easy way
+
+L<Getopt::Long::Complete> is basically just L<Getopt::Long>. Its C<GetOptions>
+function just checks for COMP_LINE/COMP_POINT environment variable before
+passing its arguments to Getopt::Long's GetOptions. If COMP_LINE is defined,
+completion reply will be printed to STDOUT and then the program will exit.
+Otherwise, Getopt::Long's GetOptions is called.
+
+To keep completion quick, you should do GetOptions as early as possible in your
+script. Preferably before loading lots of other Perl modules.
+
+
+=head1 FUNCTIONS
+
+=head1 GetOptions([\%hash, ]@spec)
+
+Will call Getopt::Long's GetOptions, except when COMP_LINE environment variable
+is defined.
+
+=head1 GetOptionsWithCompletion(\%comps, [\%hash, ]@spec)
+
+Just like C<GetOptions>, except that it accepts an extra first argument
+C<\%comps> containing completion hints for completing option I<values> and
+arguments. See Synopsis for example.
 
 
 =head1 SEE ALSO
 
-L<Complete::Getopt::Long>
+L<Complete::Getopt::Long>, C<Complete::Bash>.
 
 Other option-processing modules featuring shell tab completion:
 L<Getopt::Complete>.
