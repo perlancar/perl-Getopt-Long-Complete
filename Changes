@@ -1,5 +1,14 @@
 Revision history for Getopt-Long-Complete
 
+0.03    2014-07-22 (SHARYANTO)
+
+        - No functional changes.
+
+        - Fix POD.
+
+        - Add example for completing argument.
+
+
 0.02    2014-07-22 (SHARYANTO)
 
         - No functional changes.
