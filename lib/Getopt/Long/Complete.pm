@@ -114,6 +114,28 @@ Now you can do:
  % delete-user --on-fail die --user a<tab>
  alice autrijus
 
+Another example for completing arguments (here we accept multiple usernames as
+arguments instead of the C<--user> option):
+
+ use Getopt::Long::Complete qw(GetOptionsWithCompletion);
+ use Complete::Unix;
+ my %opts;
+ GetOptionsWithCompletion(
+     {
+         'on-fail=s' => [qw/die warn ignore/],
+         ''          => \&Complete::Unix::complete_user,
+     },
+     'help|h'     => sub { ... },
+     'on-fail=s'  => \$opts{on_fail},
+     'force'      => \$opts{force},
+     'verbose!'   => \$opts{verbose},
+ );
+
+Now you can do:
+
+ % delete-user a<tab>
+ alice autrijus
+
 
 =head1 DESCRIPTION
 
