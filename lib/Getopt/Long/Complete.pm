@@ -86,9 +86,9 @@ Now, tab completion works:
 =head2 Second example (added completion)
 
 The previous example only provides completion for option names. To provide
-completion for option values as well as arguments, you need to provide need more
+completion for option values as well as arguments, you need to provide more
 hints. Instead of C<GetOptions>, use C<GetOptionsWithCompletion>. It's basically
-the same as C<GetOptions> but accept an extra hash first argument. The hash
+the same as C<GetOptions> but accepts an extra hash first argument. The hash
 contains option spec as its keys, or an empty string (to provide hints for
 arguments), and arrays or coderefs as its values. Example:
 
