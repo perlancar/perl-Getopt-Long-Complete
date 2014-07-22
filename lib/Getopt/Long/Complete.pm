@@ -131,12 +131,12 @@ script. Preferably before loading lots of other Perl modules.
 
 =head1 FUNCTIONS
 
-=head1 GetOptions([\%hash, ]@spec)
+=head2 GetOptions([\%hash, ]@spec)
 
 Will call Getopt::Long's GetOptions, except when COMP_LINE environment variable
 is defined.
 
-=head1 GetOptionsWithCompletion(\%comps, [\%hash, ]@spec)
+=head2 GetOptionsWithCompletion(\%comps, [\%hash, ]@spec)
 
 Just like C<GetOptions>, except that it accepts an extra first argument
 C<\%comps> containing completion hints for completing option I<values> and
