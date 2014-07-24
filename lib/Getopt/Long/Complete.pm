@@ -83,7 +83,7 @@ Now, tab completion works:
  --force --help --noverbose --no-verbose --on-fail --user --verbose -h
  % delete-user --h<tab>
 
-=head2 Second example (added completion)
+=head2 Second example (additional completion)
 
 The previous example only provides completion for option names. To provide
 completion for option values as well as arguments, you need to provide more
