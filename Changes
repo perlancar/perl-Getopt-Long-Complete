@@ -1,5 +1,12 @@
 Revision history for Getopt-Long-Complete
 
+0.04    2014-07-25 (SHARYANTO)
+
+        - No functional changes.
+
+        - Adjust to Complete::Bash 0.09.
+
+
 0.03    2014-07-22 (SHARYANTO)
 
         - No functional changes.
