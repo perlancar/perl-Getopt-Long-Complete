@@ -31,6 +31,7 @@ sub GetOptionsWithCompletion {
 
         my ($words, $cword) = @{ Complete::Bash::parse_cmdline(
             undef, undef, '=') };
+        shift @$words; $cword--; # strip command name
         my $compres = Complete::Getopt::Long::complete_cli_arg(
             words => $words, cword => $cword, getopt_spec=>{ @_ },
             completion => $comps);
