@@ -1,5 +1,16 @@
 Revision history for Getopt-Long-Complete
 
+0.06    2014-07-27 (SHARYANTO)
+
+        [INCOMPATIBLE CHANGES]
+
+        - (Adjust with Complete::Getopt::Long) GetOptionsWithCompletion()'s
+          first argument is now a coderef instead of hash of codes/arrays. The
+          code now gets more information/arguments to be able to differentiate
+          what option/argument it is being called for. See
+          Complete::Getopt::Long for more details.
+
+
 0.05    2014-07-26 (SHARYANTO)
 
         - Add demo script: test-getopt-long-complete.
