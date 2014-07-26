@@ -11,14 +11,18 @@ use Getopt::Long::Complete qw(GetOptionsWithCompletion);
 
 my %opts = (cols => 1, bg=>0);
 my $res = GetOptionsWithCompletion(
-    {
-        'int-comp-array=i' => [1..10],
-        'str-comp-sub=s' => sub {
-            my %args = @_;
-            my $word = $args{word} // '';
-            complete_array_elem(array=>[map {"$word$_"} "a".."z"],
-                                word=>$word, ci=>1);
-        },
+    sub {
+        my %args = @_;
+        my $word = $args{word};
+        my $ospec = $args{ospec} // '';
+        if ($ospec eq 'int-comp-array=i') {
+            return complete_array_elem(array=>[1..10], word=>$word);
+        } elsif ($ospec eq 'str-comp-sub=s') {
+            return complete_array_elem(array=>[map {"$word$_"} "a".."z"],
+                                       word=>$word, ci=>1);
+        } else {
+            return undef;
+        }
     },
     'flag1' => sub{},
     'flag2|f' => sub{},
