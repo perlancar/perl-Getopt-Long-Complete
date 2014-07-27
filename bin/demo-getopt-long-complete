@@ -32,7 +32,7 @@ my $res = GetOptionsWithCompletion(
     'bool|b!' => sub{},
     'int=i' => sub{},
     'float|F=f' => sub{},
-    'str|S=s' => sub{},
+    'str|text|S=s' => sub{},
     'array=s@' => sub{},
     'int-comp-array=i' => sub{},
     'str-comp-sub=s' => sub{},
@@ -54,7 +54,7 @@ Options:
   --(no)bool, -b
   --int=i
   --float=f, -F
-  --str=s, -S
+  --str=s, --text, -S
   --array=s@
   --int-comp-array=i
   --str-comp-sub=s
