@@ -1,5 +1,12 @@
 Revision history for Getopt-Long-Complete
 
+0.07    2014-07-27 (SHARYANTO)
+
+        - Support old GetOptionsWithCompletion()'s first argument as hash
+          (through Complete::Getopt::Long 0.09). This is undocumented and will
+          be removed in the future though.
+
+
 0.06    2014-07-27 (SHARYANTO)
 
         [INCOMPATIBLE CHANGES]
