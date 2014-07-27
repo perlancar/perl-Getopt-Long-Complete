@@ -1,5 +1,11 @@
 Revision history for Getopt-Long-Complete
 
+0.08    2014-07-27 (SHARYANTO)
+
+        - bin/demo-getopt-long-complete: set sane Getopt::Long configuration
+          (bundling + no_ignore_case).
+
+
 0.07    2014-07-27 (SHARYANTO)
 
         - Support old GetOptionsWithCompletion()'s first argument as hash
@@ -21,7 +27,7 @@ Revision history for Getopt-Long-Complete
 
 0.05    2014-07-26 (SHARYANTO)
 
-        - Add demo script: test-getopt-long-complete.
+        - Add demo script: demo-getopt-long-complete.
 
 
 0.04    2014-07-25 (SHARYANTO)
