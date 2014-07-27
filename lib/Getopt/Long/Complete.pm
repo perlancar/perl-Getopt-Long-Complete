@@ -40,11 +40,13 @@ sub GetOptionsWithCompletion {
     }
 
     require Getopt::Long;
+    my $old_conf = Getopt::Long::Configure('no_ignore_case', 'bundling');
     if ($hash) {
         Getopt::Long::GetOptions($hash, @_);
     } else {
         Getopt::Long::GetOptions(@_);
     }
+    Getopt::Long::Configure($old_conf);
 }
 
 sub GetOptions {
@@ -132,9 +134,7 @@ To keep completion quick, you should do C<GetOptions()> or
 C<GetOptionsWithCompletion()> as early as possible in your script. Preferably
 before loading lots of other Perl modules.
 
-Tab completion will behave like Getopt::Long using these configuration: bundling
-(so -abc works), no_ignore_case, auto_abbrev, permute (so you need to give C<-->
-to end completing option names/values). I believe this is a pretty sane default.
+Getopt::Long::Configure('no_ignore_case', 'bundling');
 
 
 =head1 FUNCTIONS
@@ -143,6 +143,9 @@ to end completing option names/values). I believe this is a pretty sane default.
 
 Will call Getopt::Long's GetOptions, except when COMP_LINE environment variable
 is defined.
+
+B<Note: Will temporarily set Getopt::Long configuration as follow: bundling,
+no_ignore_case. I believe this a sane default.>
 
 =head2 GetOptionsWithCompletion(\&completion, [\%hash, ]@spec)
 
