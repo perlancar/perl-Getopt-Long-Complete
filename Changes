@@ -1,5 +1,15 @@
 Revision history for Getopt-Long-Complete
 
+0.09    2014-07-27 (SHARYANTO)
+
+        - bin/demo-getopt-long-complete: bug fix and add some more short/long
+          option aliases.
+
+        - Add note that the behaviour of completion assumes Getopt::Long is
+          configured with these configuration: no_ignore_case, bundling,
+          auto_abbrev, permute.
+
+
 0.08    2014-07-27 (SHARYANTO)
 
         - bin/demo-getopt-long-complete: set sane Getopt::Long configuration
