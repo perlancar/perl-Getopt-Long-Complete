@@ -5,10 +5,11 @@ Revision history for Getopt-Long-Complete
         [INCOMPATIBLE CHANGES]
 
         - (Adjust with Complete::Getopt::Long) GetOptionsWithCompletion()'s
-          first argument is now a coderef instead of hash of codes/arrays. The
-          code now gets more information/arguments to be able to differentiate
-          what option/argument it is being called for. See
-          Complete::Getopt::Long for more details.
+          first argument is now a coderef instead of hash of codes/arrays. This
+          is conceptually simpler and does not force user to specify for every
+          opt spec if she doesn't need to. The completion code now gets more
+          information/arguments to be able to differentiate what option/argument
+          it is being called for. See Complete::Getopt::Long for more details.
 
 
 0.05    2014-07-26 (SHARYANTO)
