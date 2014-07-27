@@ -7,6 +7,7 @@ use 5.010;
 use strict;
 use warnings;
 use Complete::Util qw(complete_array_elem);
+use Getopt::Long;
 use Getopt::Long::Complete qw(GetOptionsWithCompletion);
 
 Getopt::Long::Configure('no_ignore_case', 'bundling');
@@ -31,7 +32,7 @@ my $res = GetOptionsWithCompletion(
     'bool!' => sub{},
     'int=i' => sub{},
     'float|F=f' => sub{},
-    'str=s' => sub{},
+    'str|S=s' => sub{},
     'array=s@' => sub{},
     'int-comp-array=i' => sub{},
     'str-comp-sub=s' => sub{},
