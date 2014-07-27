@@ -132,6 +132,10 @@ To keep completion quick, you should do C<GetOptions()> or
 C<GetOptionsWithCompletion()> as early as possible in your script. Preferably
 before loading lots of other Perl modules.
 
+Tab completion will behave like Getopt::Long using these configuration: bundling
+(so -abc works), no_ignore_case, auto_abbrev, permute (so you need to give C<-->
+to end completing option names/values). I believe this is a pretty sane default.
+
 
 =head1 FUNCTIONS
 
