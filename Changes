@@ -1,5 +1,13 @@
 Revision history for Getopt-Long-Complete
 
+0.10    2014-07-27 (SHARYANTO)
+
+        [POTENTIALLY INCOMPATIBLE CHANGES]
+
+        - GetOptions{,WithCompletion} now temporarily configure Getopt::Long
+          with no_ignore_case, bundling.
+
+
 0.09    2014-07-27 (SHARYANTO)
 
         - bin/demo-getopt-long-complete: bug fix and add some more short/long
