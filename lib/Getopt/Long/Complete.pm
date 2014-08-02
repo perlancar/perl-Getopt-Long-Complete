@@ -75,8 +75,8 @@ example, below is source code for C<delete-user>.
  );
 
 To activate completion, put your script somewhere in C<PATH> and execute this in
-the shell or put it into your bash startup file (e.g. C</etc/bash_profile> or
-C<~/.bashrc>):
+the shell or put it into your bash startup file (e.g. C</etc/profile>,
+C</etc/bash.bashrc>, C<~/.bash_profile>, or C<~/.bashrc>):
 
  complete -C delete-user delete-user
 
