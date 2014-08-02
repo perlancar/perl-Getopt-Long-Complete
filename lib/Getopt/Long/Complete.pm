@@ -54,7 +54,7 @@ sub GetOptions {
 }
 
 1;
-#ABSTRACT: A drop-in replacement for Getopt::Long, with tab completion
+#ABSTRACT: A drop-in replacement for Getopt::Long, with bash tab completion
 
 =head1 SYNOPSIS
 
@@ -121,9 +121,12 @@ Example:
 
 =head1 DESCRIPTION
 
-This module provides a quick and easy way to add tab completion feature to your
-scripts, including scripts already written using the venerable L<Getopt::Long>
-module.
+This module provides a quick and easy way to add shell tab completion feature to
+your scripts, including scripts already written using the venerable
+L<Getopt::Long> module.
+
+Currently only bash is supported, but support for other shells can be added in
+the future.
 
 This module is basically just a thin wrapper for Getopt::Long. Its C<GetOptions>
 function just checks for COMP_LINE/COMP_POINT environment variable before
@@ -143,7 +146,7 @@ Getopt::Long::Configure('no_ignore_case', 'bundling');
 =head2 GetOptions([\%hash, ]@spec)
 
 Will call Getopt::Long's GetOptions, except when COMP_LINE environment variable
-is defined.
+is defined, in which case will print completion reply to STDOUT and exit.
 
 B<Note: Will temporarily set Getopt::Long configuration as follow: bundling,
 no_ignore_case. I believe this a sane default.>
