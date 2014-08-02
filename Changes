@@ -1,5 +1,12 @@
 Revision history for Getopt-Long-Complete
 
+0.11    2014-08-02 (SHARYANTO)
+
+        - No functional changes.
+
+        - POD fixes.
+
+
 0.10    2014-07-27 (SHARYANTO)
 
         [POTENTIALLY INCOMPATIBLE CHANGES]
