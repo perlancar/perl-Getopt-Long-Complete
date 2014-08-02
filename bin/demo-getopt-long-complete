@@ -61,7 +61,7 @@ _
 );
 
 #say $res ? "Getopt failed" : "Getopt succeeded";
-# ABSTRACT: Script to demonstrate Complete::Getopt::Long
+# ABSTRACT: Script to demonstrate Getopt::Long::Complete
 # PODNAME: demo-getopt-long-complete
 
 =head1 SYNOPSIS
