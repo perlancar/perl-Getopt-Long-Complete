@@ -91,8 +91,9 @@ Now, tab completion works:
 The previous example only provides completion for option names. To provide
 completion for option values as well as arguments, you need to provide more
 hints. Instead of C<GetOptions>, use C<GetOptionsWithCompletion>. It's basically
-the same as C<GetOptions> but accepts a coderef in the first argument. The code
-will be invoked when completion to option value or argument is needed. Example:
+the same as C<GetOptions> but accepts an extra coderef in the first argument.
+The code will be invoked when completion to option value or argument is needed.
+Example:
 
  use Getopt::Long::Complete qw(GetOptionsWithCompletion);
  use Complete::Unix qw(complete_user);
