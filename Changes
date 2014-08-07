@@ -1,5 +1,10 @@
 Revision history for Getopt-Long-Complete
 
+0.12    2014-08-07 (SHARYANTO)
+
+        - [Bugfix] Fix shebang line of script.
+
+
 0.11    2014-08-02 (SHARYANTO)
 
         - No functional changes.
