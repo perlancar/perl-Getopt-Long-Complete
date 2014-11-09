@@ -107,8 +107,12 @@ Example:
          my $word  = $args{word}; # the word to be completed
          my $ospec = $args{ospec};
          if ($ospec && $ospec eq 'on-fail=s') {
+             # we want to complete value for option --on-fail, e.g. --on-fail <tab>
              return complete_array_elem(words=>[qw/die warn ignore/], word=>$word);
-         } elsif ($ospec eq 'user=s') {
+         if ($ospec && $ospec eq 'user=s') {
+             # we want to complete value for option --user, e.g. --user fo<tab>
+         } elsif (!$ospec) {
+             # we want to complete arguments, e.g. delete-user <tab>
              return complete_user(word=>$word);
          }
          [];
