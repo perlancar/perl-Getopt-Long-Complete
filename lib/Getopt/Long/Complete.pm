@@ -69,7 +69,7 @@ example, below is source code for C<delete-user>.
  GetOptions(
      'help|h'     => sub { ... },
      'on-fail=s'  => \$opts{on_fail},
-     'user=s'     => \$opts{name},
+     'user|U=s'   => \$opts{name},
      'force'      => \$opts{force},
      'verbose!'   => \$opts{verbose},
  );
@@ -105,14 +105,13 @@ Example:
      sub {
          my %args  = @_;
          my $word  = $args{word}; # the word to be completed
-         my $ospec = $args{ospec};
-         if ($ospec && $ospec eq 'on-fail=s') {
-             # we want to complete value for option --on-fail, e.g. --on-fail <tab>
+         my $type  = $args{type}; # 'optname', 'optval', or 'arg'
+         my $opt   = $args{opt};
+         if ($type eq 'optval' && $opt eq '--on-fail') {
              return complete_array_elem(words=>[qw/die warn ignore/], word=>$word);
-         if ($ospec && $ospec eq 'user=s') {
-             # we want to complete value for option --user, e.g. --user fo<tab>
-         } elsif (!$ospec) {
-             # we want to complete arguments, e.g. delete-user <tab>
+         } elsif ($type eq 'optval' && ($opt eq '--user' || $opt eq '-U')) {
+             return complete_user(word=>$word);
+         } elsif ($type eq 'arg') {
              return complete_user(word=>$word);
          }
          [];
@@ -159,7 +158,10 @@ no_ignore_case. I believe this a sane default.>
 
 Just like C<GetOptions>, except that it accepts an extra first argument
 C<\&completion> containing completion routine for completing option I<values>
-and arguments. See Synopsis for example.
+and arguments. This will be passed as C<completion> argument to
+L<Complete::Getopt::Long>'s C<complete_cli_arg>. See that module's documentation
+on details of what is passed to the routine and what return value is expected
+from it.
 
 
 =head1 SEE ALSO
