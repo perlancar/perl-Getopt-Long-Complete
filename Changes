@@ -1,5 +1,14 @@
 Revision history for Getopt-Long-Complete
 
+0.13    2014-11-10 (PERLANCAR)
+
+        - No functional changes.
+
+        - Fix/tweak example in Synopsis.
+
+        - Mention App::BashCompletionProg.
+
+
 0.12    2014-08-07 (SHARYANTO)
 
         - [Bugfix] Fix shebang line of script.
