@@ -80,6 +80,8 @@ C</etc/bash.bashrc>, C<~/.bash_profile>, or C<~/.bashrc>):
 
  complete -C delete-user delete-user
 
+Or you can also use L<bash-completion-prog>.
+
 Now, tab completion works:
 
  % delete-user <tab>
@@ -167,5 +169,7 @@ L<Getopt::Complete>.
 
 L<Perinci::CmdLine> - an alternative way to easily create command-line
 applications with completion feature.
+
+L<App::BashCompletionProg>
 
 =cut
