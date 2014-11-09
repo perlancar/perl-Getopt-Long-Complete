@@ -144,8 +144,6 @@ To keep completion quick, you should do C<GetOptions()> or
 C<GetOptionsWithCompletion()> as early as possible in your script. Preferably
 before loading lots of other Perl modules.
 
-Getopt::Long::Configure('no_ignore_case', 'bundling');
-
 
 =head1 FUNCTIONS
 
