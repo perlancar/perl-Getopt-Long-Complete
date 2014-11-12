@@ -50,7 +50,7 @@ sub GetOptionsWithCompletion {
 }
 
 sub GetOptions {
-    GetOptionsWithCompletion({}, @_);
+    GetOptionsWithCompletion(undef, @_);
 }
 
 1;
