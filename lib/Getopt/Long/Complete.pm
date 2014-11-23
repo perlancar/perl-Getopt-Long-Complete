@@ -25,17 +25,30 @@ sub GetOptionsWithCompletion {
         $hash = shift;
     }
 
-    if (defined $ENV{COMP_LINE}) {
-        require Complete::Bash;
+    if ($ENV{COMP_LINE} || $ENV{COMMAND_LINE}) {
+        my ($words, $cword);
+        if ($ENV{COMP_LINE}) {
+            require Complete::Bash;
+            ($words, $cword) = @{ Complete::Bash::parse_cmdline(
+                undef, undef, '=') };
+        } elsif ($ENV{COMMAND_LINE}) {
+            require Complete::Tcsh;
+            ($words, $cword) = @{ Complete::Tcsh::parse_cmdline() };
+        }
+
         require Complete::Getopt::Long;
 
-        my ($words, $cword) = @{ Complete::Bash::parse_cmdline(
-            undef, undef, '=') };
         shift @$words; $cword--; # strip program name
         my $compres = Complete::Getopt::Long::complete_cli_arg(
             words => $words, cword => $cword, getopt_spec=>{ @_ },
             completion => $comp);
-        print Complete::Bash::format_completion($compres);
+
+        if ($ENV{COMP_LINE}) {
+            print Complete::Bash::format_completion($compres);
+        } elsif ($ENV{COMMAND_LINE}) {
+            print Complete::Tcsh::format_completion($compres);
+        }
+
         exit 0;
     }
 
@@ -54,7 +67,7 @@ sub GetOptions {
 }
 
 1;
-#ABSTRACT: A drop-in replacement for Getopt::Long, with bash tab completion
+#ABSTRACT: A drop-in replacement for Getopt::Long, with shell tab completion
 
 =head1 SYNOPSIS
 
@@ -74,15 +87,8 @@ example, below is source code for C<delete-user>.
      'verbose!'   => \$opts{verbose},
  );
 
-To activate completion, put your script somewhere in C<PATH> and execute this in
-the shell or put it into your bash startup file (e.g. C</etc/profile>,
-C</etc/bash.bashrc>, C<~/.bash_profile>, or C<~/.bashrc>):
-
- complete -C delete-user delete-user
-
-Or you can also use L<bash-completion-prog>.
-
-Now, tab completion works:
+Several shells are supported. to activate completion, see L</"DESCRIPTION">.
+After activation, tab completion works:
 
  % delete-user <tab>
  --force --help --noverbose --no-verbose --on-fail --user --verbose -h
@@ -130,18 +136,33 @@ This module provides a quick and easy way to add shell tab completion feature to
 your scripts, including scripts already written using the venerable
 L<Getopt::Long> module.
 
-Currently only bash is supported, but support for other shells can be added in
-the future.
+Currently bash and tcsh is supported, support for other shells like fish and zsh
+are planned for the future.
 
 This module is basically just a thin wrapper for Getopt::Long. Its C<GetOptions>
-function just checks for COMP_LINE/COMP_POINT environment variable before
-passing its arguments to Getopt::Long's GetOptions. If COMP_LINE is defined,
-completion reply will be printed to STDOUT and then the program will exit.
-Otherwise, Getopt::Long's GetOptions is called.
+function just checks for COMP_LINE/COMP_POINT environment variable (in the case
+of bash) or COMMAND_LINE (tcsh) before passing its arguments to Getopt::Long's
+GetOptions. If those environment variable(s) are defined, completion reply will
+be printed to STDOUT and then the program will exit. Otherwise, Getopt::Long's
+GetOptions is called.
 
 To keep completion quick, you should do C<GetOptions()> or
 C<GetOptionsWithCompletion()> as early as possible in your script. Preferably
 before loading lots of other Perl modules.
+
+B<To activate tab completion in bash>, put your script somewhere in C<PATH> and
+execute this in the shell or put it into your bash startup file (e.g.
+C</etc/profile>, C</etc/bash.bashrc>, C<~/.bash_profile>, or C<~/.bashrc>):
+
+ complete -C delete-user delete-user
+
+Or you can also use L<bash-completion-prog>.
+
+B<To activate tab completion in tcsh>, put your script somewhere in C<PATH> and
+execute this in the shell or put it into your bash startup file (e.g.
+C</etc/csh.cshrc> or C<~/.tcshrc>):
+
+ complete delete-user 'p/*/`delete-user`/'
 
 
 =head1 FUNCTIONS
@@ -166,7 +187,8 @@ from it.
 
 =head1 SEE ALSO
 
-L<Complete::Getopt::Long> (the backend for this module), C<Complete::Bash>.
+L<Complete::Getopt::Long> (the backend for this module), C<Complete::Bash>,
+C<Complete::Tcsh>.
 
 Other option-processing modules featuring shell tab completion:
 L<Getopt::Complete>.
