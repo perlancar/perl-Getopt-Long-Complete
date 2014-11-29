@@ -1,8 +1,13 @@
 Revision history for Getopt-Long-Complete
 
+0.15    2014-11-29 (PERLANCAR)
+
+	- Add completion support for fish and zsh.
+
+
 0.14    2014-11-23 (PERLANCAR)
 
-	- Add support for tcsh tab completion.
+	- Add completion support for tcsh.
 
 
 0.13    2014-11-10 (PERLANCAR)
