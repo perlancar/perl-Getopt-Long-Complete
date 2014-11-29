@@ -25,9 +25,21 @@ sub GetOptionsWithCompletion {
         $hash = shift;
     }
 
-    if ($ENV{COMP_LINE} || $ENV{COMMAND_LINE}) {
+    my $shell = $ENV{COMP_SHELL} // 'bash';
+    if ($ENV{COMP_MODE} && $ENV{COMP_MODE} eq 'gen_command') {
+        if ($shell eq 'fish') {
+            require Complete::Fish::Gen::FromGetoptLong;
+            my $res = Complete::Fish::Gen::FromGetoptLong::gen_fish_complete_from_getopt_long_spec(
+                spec => {@_});
+            die "Can't generate completion command for fish: $res->[0] - $res->[1]\n"
+                unless $res->[0] == 200;
+            print $res->[2];
+            exit 0;
+        } else {
+            die "Sorry, COMP_MODE=gen_command is currently supported on fish only\n";
+        }
+    } elsif ($ENV{COMP_LINE} || $ENV{COMMAND_LINE}) {
         my ($words, $cword);
-        my $shell = $ENV{COMP_SHELL} // 'bash';
         if ($ENV{COMP_LINE}) {
             if ($shell eq 'bash') {
                 require Complete::Bash;
