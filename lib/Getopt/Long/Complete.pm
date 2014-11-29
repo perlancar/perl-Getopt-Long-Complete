@@ -239,4 +239,6 @@ applications with completion feature.
 
 L<App::BashCompletionProg>
 
+L<Pod::Weaver::Section::Completion::GetoptLongComplete>
+
 =cut
