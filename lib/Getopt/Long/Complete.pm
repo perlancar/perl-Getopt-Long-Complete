@@ -159,14 +159,13 @@ Example:
 
 This module provides a quick and easy way to add shell tab completion feature to
 your scripts, including scripts already written using the venerable
-L<Getopt::Long> module.
-
-Currently bash, fish, tcsh and zsh are supported.
+L<Getopt::Long> module. Currently bash and tcsh are directly supported; fish and
+zsh are also supported via L<shcompgen>.
 
 This module is basically just a thin wrapper for Getopt::Long. Its C<GetOptions>
 function just checks for COMP_LINE/COMP_POINT environment variable (in the case
-of bash/fish/zsh) or COMMAND_LINE (tcsh) before passing its arguments to
-Getopt::Long's GetOptions. If those environment variable(s) are defined,
+of bash) or COMMAND_LINE (in the case of tcsh) before passing its arguments to
+C<Getopt::Long>'s C<GetOptions>. If those environment variable(s) are defined,
 completion reply will be printed to STDOUT and then the program will exit.
 Otherwise, Getopt::Long's GetOptions is called.
 
@@ -174,36 +173,18 @@ To keep completion quick, you should do C<GetOptions()> or
 C<GetOptionsWithCompletion()> as early as possible in your script. Preferably
 before loading lots of other Perl modules.
 
-B<To activate tab completion in bash>, put your script somewhere in C<PATH> and
+To activate tab completion in bash, put your script somewhere in C<PATH> and
 execute this in the shell or put it into your bash startup file (e.g.
-C</etc/profile>, C</etc/bash.bashrc>, C<~/.bash_profile>, or C<~/.bashrc>).
-Replace C<delete-user> with the actual script name:
+C</etc/bash.bashrc> or C<~/.bashrc>). Replace C<delete-user> with the actual
+script name:
 
  complete -C delete-user delete-user
 
-Or you can also use L<bash-completion-prog>.
-
-B<To activate tab completion in fish>, put your script somewhere in C<PATH> and
-run this:
-
- begin; set -lx COMP_SHELL fish; set -lx COMP_MODE gen_command; delete-user; end > $HOME/.config/fish/completions/delete-user.fish
-
-Or use C</etc/fish/completions/delete-user.fish> if you want to install
-globally.
-
-B<To activate tab completion in tcsh>, put your script somewhere in C<PATH> and
-execute this in the shell or put it into your bash startup file (e.g.
-C</etc/csh.cshrc> or C<~/.tcshrc>):
+For tcsh:
 
  complete delete-user 'p/*/`delete-user`/'
 
-B<To activate tab completion in zsh>, put your script somewhere in C<PATH> and
-execute this in the shell or put it into your bash startup file (e.g.
-C</etc/zsh/zshrc> or C<~/.zshrc>):
-
- _delete_user() { read -l; local cl="$REPLY"; read -ln; local cp="$REPLY"; reply=(`COMP_LINE="$cl" COMP_POINT="$cp" delete-user`) }
-
- compctl -K _delete_user delete-user
+For other shells (but actually for bash too) you can use L<shcompgen>.
 
 
 =head1 FUNCTIONS
@@ -237,7 +218,7 @@ L<Getopt::Complete>.
 L<Perinci::CmdLine> - an alternative way to easily create command-line
 applications with completion feature.
 
-L<App::BashCompletionProg>
+L<shcompgen>
 
 L<Pod::Weaver::Section::Completion::GetoptLongComplete>
 
