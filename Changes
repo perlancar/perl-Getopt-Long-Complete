@@ -1,5 +1,11 @@
 Revision history for Getopt-Long-Complete
 
+0.16    2014-12-13 (PERLANCAR)
+
+	- Update instruction for activating tab completion (mention
+	  shcompgen).
+
+
 0.15    2014-11-29 (PERLANCAR)
 
 	- Add completion support for fish and zsh.
