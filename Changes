@@ -1,5 +1,10 @@
 Revision history for Getopt-Long-Complete
 
+0.17    2014-12-14 (PERLANCAR)
+
+	- Remove some completion code (will be handed off to shcompgen).
+
+
 0.16    2014-12-13 (PERLANCAR)
 
 	- Update instruction for activating tab completion (mention
