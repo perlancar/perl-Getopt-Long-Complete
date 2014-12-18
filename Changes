@@ -1,5 +1,12 @@
 Revision history for Getopt-Long-Complete
 
+0.18    2014-12-18 (PERLANCAR)
+
+	- No functional changes.
+
+	- [dzil] Make Complete::* modules prereq on Unix only for now.
+
+
 0.17    2014-12-14 (PERLANCAR)
 
 	- Remove some completion code (will be handed off to shcompgen).
