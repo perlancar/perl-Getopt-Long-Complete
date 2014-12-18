@@ -1,5 +1,13 @@
 Revision history for Getopt-Long-Complete
 
+0.19    2014-12-18 (PERLANCAR)
+
+	- No functional changes.
+
+	- [dist] Let's try again adding Complete::Util as prereq on
+	  Windows.
+
+
 0.18    2014-12-18 (PERLANCAR)
 
 	- No functional changes.
