@@ -17,6 +17,10 @@ our @EXPORT_OK = qw(
                     GetOptionsWithCompletion
                );
 
+# default follows Getopt::Long
+our $opt_permute = $ENV{POSIXLY_CORRECT} ? 0 : 1;
+our $opt_pass_through = 0;
+
 sub GetOptionsWithCompletion {
     my $comp = shift;
 
@@ -64,7 +68,12 @@ sub GetOptionsWithCompletion {
     }
 
     require Getopt::Long;
-    my $old_conf = Getopt::Long::Configure('no_ignore_case', 'bundling');
+    my $old_conf = Getopt::Long::Configure(
+        'no_ignore_case',
+        'bundling',
+        $opt_permute ? 'permute' : 'no_permute',
+        $opt_pass_through ? 'pass_through' : 'no_pass_through',
+    );
     if ($hash) {
         Getopt::Long::GetOptions($hash, @_);
     } else {
@@ -191,6 +200,17 @@ and arguments. This will be passed as C<completion> argument to
 L<Complete::Getopt::Long>'s C<complete_cli_arg>. See that module's documentation
 on details of what is passed to the routine and what return value is expected
 from it.
+
+
+=head1 VARIABLES
+
+Because we are "bound" by providing a Getopt::Long-compatible function
+interface, these variables exist to allow configuring Getopt::Long::GetOptions.
+You can use Perl's C<local> to localize the effect.
+
+=head2 $opt_permute => bool (default: 1 or 0 if POSIXLY_CORRECT)
+
+=head2 $opt_pass_through => bool (default: 0)
 
 
 =head1 SEE ALSO
