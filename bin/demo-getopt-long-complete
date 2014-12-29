@@ -14,20 +14,42 @@ my $res = GetOptionsWithCompletion(
     sub {
         my %args = @_;
         my $word = $args{word};
-        my $ospec = $args{ospec} // '';
-        if ($ospec eq 'int-comp-array=i') {
-            return complete_array_elem(array=>[1..10], word=>$word);
-        } elsif ($ospec eq 'str-comp-sub=s') {
-            return complete_array_elem(array=>[map {"$word$_"} "a".."z"],
-                                       word=>$word, ci=>1);
-        } else {
-            return undef;
+        my $type = $args{type};
+
+        if ($type eq 'arg') {
+            my $argpos = $args{argpos};
+            return complete_array_elem(
+                array=>["arg$argpos-a", "arg$argpos-b"], word=>$word);
+        } elsif ($type eq 'optval') {
+            my $opt = $args{opt};
+            if ($opt eq '--int-comp-array') {
+                return complete_array_elem(array=>[1..10], word=>$word);
+            } elsif ($opt eq '--str-comp-sub') {
+                return complete_array_elem(array=>[map {"$word$_"} "a".."z"],
+                                           word=>$word);
+            } elsif ($opt eq '--module' || $opt eq '-M') {
+                return {
+                    words => complete_array_elem(
+                        array=>[
+                            "Complete::Util",
+                            "Text::ANSITable",
+                            "Text::ANSI::",
+                            "Text::ANSI::Util",
+                        ],
+                        word=>$word,
+                    ),
+                    path_sep => '::',
+                };
+            }
         }
+
+        undef;
     },
     'flag1|1' => sub{},
     'flag2|f' => sub{},
     'bool|b!' => sub{},
     'int=i' => sub{},
+    'module|M=s' => sub{},
     'float|F=f' => sub{},
     'str|text|S=s' => sub{},
     'array=s@' => sub{},
