@@ -1,5 +1,11 @@
 Revision history for Getopt-Long-Complete
 
+0.21    2014-12-29 (PERLANCAR)
+
+	- Adjust to Complete::Bash 0.14 which contains workaround for the
+	  annoyance of completing word containing ':' in bash.
+
+
 0.20    2014-12-29 (PERLANCAR)
 
 	- Add setting variables: $opt_permute, $opt_pass_through.
