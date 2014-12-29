@@ -57,7 +57,8 @@ sub GetOptionsWithCompletion {
             completion => $comp);
 
         if ($shell eq 'bash') {
-            print Complete::Bash::format_completion($compres);
+            print Complete::Bash::format_completion(
+                $compres, {word=>$words->[$cword]});
         } elsif ($shell eq 'tcsh') {
             print Complete::Tcsh::format_completion($compres);
         } else {
