@@ -1,5 +1,11 @@
 Revision history for Getopt-Long-Complete
 
+0.22    2015-01-02 (PERLANCAR)
+
+	- [Bugfix] Comply with Getopt::Long: if first argument is a hash,
+	  options spec is an array not hash.
+
+
 0.21    2014-12-29 (PERLANCAR)
 
 	- Adjust to Complete::Bash 0.14 which contains workaround for the
