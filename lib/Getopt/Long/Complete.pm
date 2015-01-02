@@ -30,7 +30,7 @@ sub GetOptionsWithCompletion {
         $hash = shift;
         $ospec = { map {$_=>sub{}} @_ };
     } else {
-        $ospec = [@_];
+        $ospec = {@_};
     }
 
     my $shell;
