@@ -25,8 +25,12 @@ sub GetOptionsWithCompletion {
     my $comp = shift;
 
     my $hash;
+    my $ospec;
     if (ref($_[0]) eq 'HASH') {
         $hash = shift;
+        $ospec = { map {$_=>sub{}} @_ };
+    } else {
+        $ospec = [@_];
     }
 
     my $shell;
@@ -53,7 +57,7 @@ sub GetOptionsWithCompletion {
 
         shift @$words; $cword--; # strip program name
         my $compres = Complete::Getopt::Long::complete_cli_arg(
-            words => $words, cword => $cword, getopt_spec=>{ @_ },
+            words => $words, cword => $cword, getopt_spec => $ospec,
             completion => $comp);
 
         if ($shell eq 'bash') {
