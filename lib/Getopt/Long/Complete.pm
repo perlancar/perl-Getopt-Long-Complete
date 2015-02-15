@@ -21,6 +21,8 @@ our @EXPORT_OK = qw(
 our $opt_permute = $ENV{POSIXLY_CORRECT} ? 0 : 1;
 our $opt_pass_through = 0;
 
+our $opt_bundling = 1; # in Getopt::Long the default is off
+
 sub GetOptionsWithCompletion {
     my $comp = shift;
 
@@ -58,7 +60,9 @@ sub GetOptionsWithCompletion {
         shift @$words; $cword--; # strip program name
         my $compres = Complete::Getopt::Long::complete_cli_arg(
             words => $words, cword => $cword, getopt_spec => $ospec,
-            completion => $comp);
+            completion => $comp,
+            bundling => $opt_bundling,
+        );
 
         if ($shell eq 'bash') {
             print Complete::Bash::format_completion(
@@ -75,7 +79,7 @@ sub GetOptionsWithCompletion {
     require Getopt::Long;
     my $old_conf = Getopt::Long::Configure(
         'no_ignore_case',
-        'bundling',
+        $opt_bundling ? 'bundling' : 'no_bundling',
         $opt_permute ? 'permute' : 'no_permute',
         $opt_pass_through ? 'pass_through' : 'no_pass_through',
     );
@@ -195,7 +199,8 @@ Will call Getopt::Long's GetOptions, except when COMP_LINE environment variable
 is defined, in which case will print completion reply to STDOUT and exit.
 
 B<Note: Will temporarily set Getopt::Long configuration as follow: bundling,
-no_ignore_case. I believe this a sane default.>
+no_ignore_case. I believe this a sane default.> You can turn off bundling via
+C<$opt_bundling>.
 
 =head2 GetOptionsWithCompletion(\&completion, [\%hash, ]@spec)
 
@@ -216,6 +221,8 @@ You can use Perl's C<local> to localize the effect.
 =head2 $opt_permute => bool (default: 1 or 0 if POSIXLY_CORRECT)
 
 =head2 $opt_pass_through => bool (default: 0)
+
+=head2 $opt_bundling => bool (default: 1)
 
 
 =head1 SEE ALSO
