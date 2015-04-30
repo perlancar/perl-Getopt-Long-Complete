@@ -1,5 +1,12 @@
 Revision history for Getopt-Long-Complete
 
+0.25    2015-04-30 (PERLANCAR)
+
+	- Document incompatibilities with Getopt::Long [RT#104086].
+
+	- New Complete::Bash no longer has 3rd parameter (word_breaks).
+
+
 0.24    2015-02-15 (PERLANCAR)
 
 	- Support turning off bundling.
