@@ -103,8 +103,8 @@ sub GetOptions {
 =head2 First example (simple)
 
 You just replace C<use Getopt::Long> with C<use Getopt::Long::Complete> and your
-program suddenly supports tab completion. This works for most/many programs. For
-example, below is source code for C<delete-user>.
+program suddenly supports tab completion. This works for most/many programs (see
+L</"INCOMPATIBILITIES">. For example, below is source code for C<delete-user>.
 
  use Getopt::Long::Complete;
  my %opts;
@@ -223,6 +223,28 @@ You can use Perl's C<local> to localize the effect.
 =head2 $opt_pass_through => bool (default: 0)
 
 =head2 $opt_bundling => bool (default: 1)
+
+
+=head1 INCOMPATIBILITIES
+
+Although you can use Getopt::Long::Complete (GLC) as a drop-in replacement for
+Getopt::Long (GL) most of the time, there are some incompatibilities or
+unsupported features:
+
+=over
+
+=item * GLC does not allow passing configure options during import
+
+GLC only supports running under a specific set of modes anyway: C<bundling>,
+C<no_ignore_case>. Other non-default settings have not been tested and probably
+not supported.
+
+=item * Aside from GetOptions, no other GL functions are currently supported
+
+This include C<GetOptionsFromArray>, C<GetOptionsFromString>, C<Configure>,
+C<HelpMessage>, C<VersionMessage>.
+
+=back
 
 
 =head1 SEE ALSO
