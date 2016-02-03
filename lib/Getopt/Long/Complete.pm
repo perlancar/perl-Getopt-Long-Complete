@@ -49,6 +49,7 @@ sub GetOptionsWithCompletion {
         if ($ENV{COMP_LINE}) {
             require Complete::Bash;
             ($words,$cword) = @{ Complete::Bash::parse_cmdline(undef, undef, {truncate_current_word=>1}) };
+            ($words,$cword) = @{ Complete::Bash::join_wordbreak_words($words, $cword) };
         } elsif ($ENV{COMMAND_LINE}) {
             require Complete::Tcsh;
             $shell = 'tcsh';
