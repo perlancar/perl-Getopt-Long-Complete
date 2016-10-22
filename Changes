@@ -1,5 +1,10 @@
 Revision history for Getopt-Long-Complete
 
+0.28    2016-10-22 (PERLANCAR)
+
+	- Add support for fish & zsh (via Complete::Fish & Complete::Zsh).
+
+
 0.27    2016-02-03 (PERLANCAR)
 
 	- Adjust to Complete::Bash 0.27.
