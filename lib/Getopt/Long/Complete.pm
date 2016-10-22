@@ -52,7 +52,7 @@ sub GetOptionsWithCompletion {
             ($words,$cword) = @{ Complete::Bash::join_wordbreak_words($words, $cword) };
         } elsif ($ENV{COMMAND_LINE}) {
             require Complete::Tcsh;
-            $shell = 'tcsh';
+            $shell //= 'tcsh';
             ($words, $cword) = @{ Complete::Tcsh::parse_cmdline() };
         }
 
@@ -66,10 +66,19 @@ sub GetOptionsWithCompletion {
         );
 
         if ($shell eq 'bash') {
+            require Complete::Bash;
+            print Complete::Bash::format_completion(
+                $compres, {word=>$words->[$cword]});
+        } elsif ($shell eq 'fish') {
+            require Complete::Fish;
             print Complete::Bash::format_completion(
                 $compres, {word=>$words->[$cword]});
         } elsif ($shell eq 'tcsh') {
+            require Complete::Tcsh;
             print Complete::Tcsh::format_completion($compres);
+        } elsif ($shell eq 'zsh') {
+            require Complete::Zsh;
+            print Complete::Zsh::format_completion($compres);
         } else {
             die "Unknown shell '$shell'";
         }
