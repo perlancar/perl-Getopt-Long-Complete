@@ -1,5 +1,10 @@
 Revision history for Getopt-Long-Complete
 
+0.29    2016-12-03 (PERLANCAR)
+
+	- Set Getopt::Long configuration: gnu_compat and no_getopt_compat.
+
+
 0.28    2016-10-22 (PERLANCAR)
 
 	- Add support for fish & zsh (via Complete::Fish & Complete::Zsh).
