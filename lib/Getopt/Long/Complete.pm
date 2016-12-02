@@ -89,6 +89,8 @@ sub GetOptionsWithCompletion {
     require Getopt::Long;
     my $old_conf = Getopt::Long::Configure(
         'no_ignore_case',
+        'no_getopt_compat',
+        'gnu_compat',
         $opt_bundling ? 'bundling' : 'no_bundling',
         $opt_permute ? 'permute' : 'no_permute',
         $opt_pass_through ? 'pass_through' : 'no_pass_through',
@@ -209,8 +211,10 @@ Will call Getopt::Long's GetOptions, except when COMP_LINE environment variable
 is defined, in which case will print completion reply to STDOUT and exit.
 
 B<Note: Will temporarily set Getopt::Long configuration as follow: bundling,
-no_ignore_case. I believe this a sane default.> You can turn off bundling via
-C<$opt_bundling>.
+no_ignore_case, gnu_compat, no_getopt_compat, permute (if POSIXLY_CORRECT
+environment is false). I believe this a sane default.> You can turn off bundling
+via C<$opt_bundling>. You can turn on/off permute explicitly by via
+C<$opt_permute>. You can turn on pass_through via C<$opt_pass_through>.
 
 =head2 GetOptionsWithCompletion(\&completion, [\%hash, ]@spec)
 
