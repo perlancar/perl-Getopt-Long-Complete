@@ -263,6 +263,10 @@ C<HelpMessage>, C<VersionMessage>.
 
 =head1 SEE ALSO
 
+L<Getopt::Long::More>, another drop-in replacement for Getopt::Long with tab
+completion support and more stuffs: default value, required value, summary in
+auto_help.
+
 L<Complete::Getopt::Long> (the backend for this module), C<Complete::Bash>,
 C<Complete::Tcsh>.
 
