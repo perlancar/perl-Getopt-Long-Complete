@@ -30,7 +30,14 @@ sub GetOptionsWithCompletion {
     my $ospec;
     if (ref($_[0]) eq 'HASH') {
         $hash = shift;
-        $ospec = { map {$_=>sub{}} @_ };
+        for (my $i = 0; $i < @_; $i++) {
+            if (($i+1 < @_) && (ref $_[$i+1])) {
+                $ospec->{$_[$i]} = $_[$i+1];
+                $i++;
+            } else {
+                $ospec->{$_[$i]} = sub {};
+            }
+        }
     } else {
         $ospec = {@_};
     }
