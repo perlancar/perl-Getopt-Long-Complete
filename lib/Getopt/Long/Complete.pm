@@ -1,5 +1,7 @@
 package Getopt::Long::Complete;
 
+## no critic (Modules::ProhibitAutomaticExportation)
+
 # DATE
 # VERSION
 
