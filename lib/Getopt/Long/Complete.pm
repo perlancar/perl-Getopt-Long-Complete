@@ -155,7 +155,7 @@ Example:
          my $type  = $args{type}; # 'optname', 'optval', or 'arg'
          my $opt   = $args{opt};
          if ($type eq 'optval' && $opt eq '--on-fail') {
-             return complete_array_elem(words=>[qw/die warn ignore/], word=>$word);
+             return complete_array_elem(array=>[qw/die warn ignore/], word=>$word);
          } elsif ($type eq 'optval' && ($opt eq '--user' || $opt eq '-U')) {
              return complete_user(word=>$word);
          } elsif ($type eq 'arg') {
