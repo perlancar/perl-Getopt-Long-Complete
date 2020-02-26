@@ -214,7 +214,11 @@ For other shells (but actually for bash too) you can use L<shcompgen>.
 
 =head1 FUNCTIONS
 
-=head2 GetOptions([\%hash, ]@spec)
+=head2 GetOptions
+
+Usage:
+
+ GetOptions([ \%hash, ] @spec)
 
 Will call Getopt::Long's GetOptions, except when COMP_LINE environment variable
 is defined, in which case will print completion reply to STDOUT and exit.
@@ -225,7 +229,11 @@ environment is false). I believe this a sane default.> You can turn off bundling
 via C<$opt_bundling>. You can turn on/off permute explicitly by via
 C<$opt_permute>. You can turn on pass_through via C<$opt_pass_through>.
 
-=head2 GetOptionsWithCompletion(\&completion, [\%hash, ]@spec)
+=head2 GetOptionsWithCompletion
+
+Usage:
+
+ GetOptionsWithCompletion(\&completion, [ \%hash, ] @spec)
 
 Just like C<GetOptions>, except that it accepts an extra first argument
 C<\&completion> containing completion routine for completing option I<values>
@@ -241,11 +249,17 @@ Because we are "bound" by providing a Getopt::Long-compatible function
 interface, these variables exist to allow configuring Getopt::Long::GetOptions.
 You can use Perl's C<local> to localize the effect.
 
-=head2 $opt_permute => bool (default: 1 or 0 if POSIXLY_CORRECT)
+=head2 $opt_permute
 
-=head2 $opt_pass_through => bool (default: 0)
+Bool. Default: 1 (or 0 if POSIXLY_CORRECT).
 
-=head2 $opt_bundling => bool (default: 1)
+=head2 $opt_pass_through
+
+Bool. Default: 0.
+
+=head2 $opt_bundling
+
+Bool. Default: 1.
 
 
 =head1 INCOMPATIBILITIES
@@ -276,8 +290,8 @@ L<Getopt::Long::More>, another drop-in replacement for Getopt::Long with tab
 completion support and more stuffs: default value, required value, summary in
 auto_help.
 
-L<Complete::Getopt::Long> (the backend for this module), C<Complete::Bash>,
-C<Complete::Tcsh>.
+L<Complete::Getopt::Long> (the backend for this module), L<Complete::Bash>,
+L<Complete::Tcsh>.
 
 Other option-processing modules featuring shell tab completion:
 L<Getopt::Complete>.
