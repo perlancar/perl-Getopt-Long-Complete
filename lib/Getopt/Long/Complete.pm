@@ -1,11 +1,12 @@
-package Getopt::Long::Complete;
-
 ## no critic (Modules::ProhibitAutomaticExportation)
 
+package Getopt::Long::Complete;
+
+# AUTHORITY
 # DATE
+# DIST
 # VERSION
 
-use 5.010001;
 use strict;
 use warnings;
 
@@ -13,11 +14,26 @@ require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(
                     GetOptions
+
+                    $REQUIRE_ORDER $PERMUTE $RETURN_IN_ORDER
                );
 our @EXPORT_OK = qw(
-                    GetOptions
                     GetOptionsWithCompletion
+
+                    GetOptionsFromArray
+                    GetOptionsFromString
+                    Configure
+                    HelpMessage
+                    VersionMessage
                );
+
+# we don't want to always load Getopt::Long to avoid startup overhead.
+our ($REQUIRE_ORDER, $PERMUTE, $RETURN_IN_ORDER) = (0..2); # copied from Getopt::Long
+sub GetOptionsFromArray  { require Getopt::Long; goto &Getopt::Long::GetOptionsFromArray }
+sub GetOptionsFromString { require Getopt::Long; goto &Getopt::Long::GetOptionsFromString }
+sub Configure            { require Getopt::Long; goto &Getopt::Long::Configure }
+sub HelpMessage          { require Getopt::Long; goto &Getopt::Long::HelpMessage }
+sub VersionMessage       { require Getopt::Long; goto &Getopt::Long::VersionMessage }
 
 # default follows Getopt::Long
 our $opt_permute = $ENV{POSIXLY_CORRECT} ? 0 : 1;
@@ -61,7 +77,7 @@ sub GetOptionsWithCompletion {
             ($words,$cword) = @{ Complete::Bash::join_wordbreak_words($words, $cword) };
         } elsif ($ENV{COMMAND_LINE}) {
             require Complete::Tcsh;
-            $shell //= 'tcsh';
+            $shell ||= 'tcsh';
             ($words, $cword) = @{ Complete::Tcsh::parse_cmdline() };
         }
 
@@ -220,8 +236,9 @@ Usage:
 
  GetOptions([ \%hash, ] @spec)
 
-Will call Getopt::Long's GetOptions, except when COMP_LINE environment variable
-is defined, in which case will print completion reply to STDOUT and exit.
+Exported by default. Will call Getopt::Long's GetOptions, except when COMP_LINE
+environment variable is defined, in which case will print completion reply to
+STDOUT and exit.
 
 B<Note: Will temporarily set Getopt::Long configuration as follow: bundling,
 no_ignore_case, gnu_compat, no_getopt_compat, permute (if POSIXLY_CORRECT
@@ -235,12 +252,32 @@ Usage:
 
  GetOptionsWithCompletion(\&completion, [ \%hash, ] @spec)
 
-Just like C<GetOptions>, except that it accepts an extra first argument
-C<\&completion> containing completion routine for completing option I<values>
-and arguments. This will be passed as C<completion> argument to
+Exported on demand. Just like C<GetOptions>, except that it accepts an extra
+first argument C<\&completion> containing completion routine for completing
+option I<values> and arguments. This will be passed as C<completion> argument to
 L<Complete::Getopt::Long>'s C<complete_cli_arg>. See that module's documentation
 on details of what is passed to the routine and what return value is expected
 from it.
+
+=head2 GetOptionsFromArray
+
+Exported on demand. Will just call Getopt::Long's version.
+
+=head2 GetOptionsFromString
+
+Exported on demand. Will just call Getopt::Long's version.
+
+=head2 Configure
+
+Exported on demand. Will just call Getopt::Long's version.
+
+=head2 HelpMessage
+
+Exported on demand. Will just call Getopt::Long's version.
+
+=head2 VersionMessage
+
+Exported on demand. Will just call Getopt::Long's version.
 
 
 =head1 VARIABLES
@@ -251,15 +288,30 @@ You can use Perl's C<local> to localize the effect.
 
 =head2 $opt_permute
 
-Bool. Default: 1 (or 0 if POSIXLY_CORRECT).
+Bool. Default: 1 (or 0 if POSIXLY_CORRECT). Not exported.
 
 =head2 $opt_pass_through
 
-Bool. Default: 0.
+Bool. Default: 0. Not exported.
 
 =head2 $opt_bundling
 
-Bool. Default: 1.
+Bool. Default: 1. Not exported.
+
+=head2 $REQUIRE_ORDER
+
+Integer. Constant. Value is 0. Exported by default, to be compatible with
+Getopt::Long.
+
+=head2 $PERMUTE
+
+Integer. Constant. Value is 1. Exported by default, to be compatible with
+Getopt::Long.
+
+=head2 $RETURN_IN_ORDER
+
+Integer. Constant. Value is 2. Exported by default, to be compatible with
+Getopt::Long.
 
 
 =head1 INCOMPATIBILITIES
@@ -275,11 +327,6 @@ unsupported features:
 GLC only supports running under a specific set of modes anyway: C<bundling>,
 C<no_ignore_case>. Other non-default settings have not been tested and probably
 not supported.
-
-=item * Aside from GetOptions, no other GL functions are currently supported
-
-This include C<GetOptionsFromArray>, C<GetOptionsFromString>, C<Configure>,
-C<HelpMessage>, C<VersionMessage>.
 
 =back
 
