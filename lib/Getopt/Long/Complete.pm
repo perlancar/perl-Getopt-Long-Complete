@@ -316,17 +316,22 @@ Getopt::Long.
 
 =head1 INCOMPATIBILITIES
 
-Although you can use Getopt::Long::Complete (GLC) as a drop-in replacement for
-Getopt::Long (GL) most of the time, there are some incompatibilities or
-unsupported features:
+Getopt::Long::Complete (GLC) provides all the same exports as Getopt::Long (GL),
+for example L</GetOptions> (exported by default), L</GetOptionsFromArray>,
+L</Configure>, etc.
+
+Aside from L<GetOptions> which has an extra behavior to support completion, all
+the other routines of GLC behave exactly the same as GL.
+
+However, there are some incompatibilities or unsupported features:
 
 =over
 
 =item * GLC does not allow passing configure options during import
 
-GLC only supports running under a specific set of modes anyway: C<bundling>,
-C<no_ignore_case>. Other non-default settings have not been tested and probably
-not supported.
+=item * GLC's GetOptions only supports running under a specific set of modes: C<bundling>, C<no_ignore_case>.
+
+Other non-default settings have not been tested and probably not supported.
 
 =back
 
