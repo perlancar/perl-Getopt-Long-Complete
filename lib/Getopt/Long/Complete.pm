@@ -57,7 +57,7 @@ sub GetOptionsWithCompletion {
             }
         }
     } else {
-        $ospec = {@_};
+        $ospec = \@_;
     }
 
     my $shell;
