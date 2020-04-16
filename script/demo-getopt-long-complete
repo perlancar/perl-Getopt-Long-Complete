@@ -14,6 +14,7 @@ my %opts;
 my $res = GetOptionsWithCompletion(
     sub {
         my %args = @_;
+        #use DD; dd \%args;
         my $word = $args{word};
         my $type = $args{type};
 
