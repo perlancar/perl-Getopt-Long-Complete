@@ -7,7 +7,9 @@
 
 use strict;
 use warnings;
-use Complete::Util qw(complete_array_elem);
+use Log::ger;
+
+use Complete::Util qw(complete_array_elem combine_answers);
 use Getopt::Long::Complete qw(GetOptionsWithCompletion);
 
 my %opts;
@@ -23,14 +25,18 @@ my $res = GetOptionsWithCompletion(
             return complete_array_elem(
                 array=>["arg$argpos-a", "arg$argpos-b"], word=>$word);
         } elsif ($type eq 'optval') {
-            my $opt = $args{opt};
-            if ($opt eq '--int-comp-array') {
-                return complete_array_elem(array=>[1..10], word=>$word);
-            } elsif ($opt eq '--str-comp-sub') {
-                return complete_array_elem(array=>[map {"$word$_"} "a".."z"],
-                                           word=>$word);
-            } elsif ($opt =~ /\A(--planet|-P|--opt-planet|-p)\z/) {
-                return {
+            my $opts = ref $args{opt} eq 'ARRAY' ? $args{opt} : [$args{opt}];
+            #log_trace "opts=%s", $opts;
+            my @comps;
+            if (grep { $_ eq '--int-comp-array' } @$opts) {
+                push @comps, complete_array_elem(array=>[1..10], word=>$word);
+            }
+            if (grep { $_ eq '--str-comp-sub' } @$opts) {
+                push @comps, complete_array_elem(array=>[map {"$word$_"} "a".."z"],
+                                                 word=>$word);
+            }
+            if (grep { /\A(--planet|-P|--opt-planet|-p)\z/ } @$opts) {
+                push @comps, {
                     words => complete_array_elem(
                         array=>[
                             "mercury",
@@ -41,8 +47,9 @@ my $res = GetOptionsWithCompletion(
                     ),
                     path_sep => '::',
                 };
-            } elsif ($opt =~ /\A(--fruit)\z/) {
-                return {
+            }
+            if (grep { /\A(--fruit)\z/ } @$opts) {
+                push @comps, {
                     words => complete_array_elem(
                         array=>[
                             "banana",
@@ -55,6 +62,7 @@ my $res = GetOptionsWithCompletion(
                     path_sep => '::',
                 };
             }
+            return combine_answers(@comps);
         }
 
         undef;

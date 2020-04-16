@@ -180,7 +180,7 @@ Example:
          my %args  = @_;
          my $word  = $args{word}; # the word to be completed
          my $type  = $args{type}; # 'optname', 'optval', or 'arg'
-         my $opt   = $args{opt};
+         my $opt   = $args{opt}; # can be an array of options if ambiguous, e.g. ['--on-fail', '--on-full']
          if ($type eq 'optval' && $opt eq '--on-fail') {
              return complete_array_elem(array=>[qw/die warn ignore/], word=>$word);
          } elsif ($type eq 'optval' && ($opt eq '--user' || $opt eq '-U')) {
