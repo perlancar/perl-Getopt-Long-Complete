@@ -10,7 +10,7 @@ use warnings;
 use Complete::Util qw(complete_array_elem);
 use Getopt::Long::Complete qw(GetOptionsWithCompletion);
 
-my %opts = (cols => 1, bg=>0);
+my %opts;
 my $res = GetOptionsWithCompletion(
     sub {
         my %args = @_;
@@ -40,25 +40,39 @@ my $res = GetOptionsWithCompletion(
                     ),
                     path_sep => '::',
                 };
+            } elsif ($opt =~ /\A(--fruit)\z/) {
+                return {
+                    words => complete_array_elem(
+                        array=>[
+                            "banana",
+                            "apple",
+                            "apricot",
+                            "durian",
+                        ],
+                        word=>$word,
+                    ),
+                    path_sep => '::',
+                };
             }
         }
 
         undef;
     },
-    'flag1|1' => sub{},
-    'flag2|f' => sub{},
-    'bool|b!' => sub{},
-    'int=i' => sub{},
+    \%opts,
+    'flag1|1',
+    'flag2|f',
+    'bool|b!',
+    'int=i',
+    'float|F=f',
+    'str|text|S=s',
+    'array=s@',
+    'int-comp-array=i',
+    'str-comp-sub=s',
 
     # to demonstrate completing optval
-    'planet|P=s' => sub{},
-    'opt-planet|p:s' => sub{},
-
-    'float|F=f' => sub{},
-    'str|text|S=s' => sub{},
-    'array=s@' => sub{},
-    'int-comp-array=i' => sub{},
-    'str-comp-sub=s' => sub{},
+    'planet|P=s',
+    'opt-planet|p:s',
+    'fruit=s',
 
     'version|v' => sub{
         no warnings;
@@ -89,7 +103,11 @@ _
     },
 );
 
-#print $res ? "Getopt failed\n" : "Getopt succeeded\n";
+print $res ? "Getopt succeeded\n" : "Getopt failed\n";
+print "Result:\n";
+for (sort keys %opts) {
+    print "  $_: $opts{$_}\n";
+}
 
 # ABSTRACT: Script to demonstrate Getopt::Long::Complete
 # PODNAME:
