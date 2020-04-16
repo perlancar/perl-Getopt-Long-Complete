@@ -120,12 +120,14 @@ sub GetOptionsWithCompletion {
         $opt_permute ? 'permute' : 'no_permute',
         $opt_pass_through ? 'pass_through' : 'no_pass_through',
     );
+    my $res;
     if ($hash) {
-        Getopt::Long::GetOptions($hash, @_);
+        $res = Getopt::Long::GetOptions($hash, @_);
     } else {
-        Getopt::Long::GetOptions(@_);
+        $res = Getopt::Long::GetOptions(@_);
     }
     Getopt::Long::Configure($old_conf);
+    $res;
 }
 
 sub GetOptions {
