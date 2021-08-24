@@ -347,6 +347,9 @@ auto_help.
 L<Complete::Getopt::Long> (the backend for this module), L<Complete::Bash>,
 L<Complete::Tcsh>.
 
+L<Getopt::Long::Subcommand> also supports tab completion, in addition to
+subcommands.
+
 Other option-processing modules featuring shell tab completion:
 L<Getopt::Complete>.
 
