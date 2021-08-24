@@ -1,16 +1,16 @@
 #!perl
 
-# AUTHORITY
-# DATE
-# DIST
-# VERSION
-
 use strict;
 use warnings;
 use Log::ger;
 
 use Complete::Util qw(complete_array_elem combine_answers);
 use Getopt::Long::Complete qw(GetOptionsWithCompletion);
+
+# AUTHORITY
+# DATE
+# DIST
+# VERSION
 
 my %opts;
 my $res = GetOptionsWithCompletion(
