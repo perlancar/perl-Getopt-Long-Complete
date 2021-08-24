@@ -2,11 +2,6 @@
 
 package Getopt::Long::Complete;
 
-# AUTHORITY
-# DATE
-# DIST
-# VERSION
-
 use strict;
 use warnings;
 
@@ -26,6 +21,11 @@ our @EXPORT_OK = qw(
                     HelpMessage
                     VersionMessage
                );
+
+# AUTHORITY
+# DATE
+# DIST
+# VERSION
 
 # we don't want to always load Getopt::Long to avoid startup overhead.
 our ($REQUIRE_ORDER, $PERMUTE, $RETURN_IN_ORDER) = (0..2); # copied from Getopt::Long
