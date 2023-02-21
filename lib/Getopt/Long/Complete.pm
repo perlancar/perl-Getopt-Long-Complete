@@ -177,7 +177,7 @@ Example:
  my %opts;
  GetOptionsWithCompletion(
      sub {
-         my %args  = @_;
+         my %args  = @_; # see Complete::Getopt::Long for details on what arguments are provided
          my $word  = $args{word}; # the word to be completed
          my $type  = $args{type}; # 'optname', 'optval', or 'arg'
          my $opt   = $args{opt}; # can be an array of options if ambiguous, e.g. ['--on-fail', '--on-full']
